@@ -1,29 +1,37 @@
 <script>
-  export default {
-    data() {
-      return {
-        brand: '',
-        price: 0,
-        count: 0,
-        cars: {
-          // brands: ['bmw', 'audi', 'mercedes'],
-          BMW: 22000,
-          mercedes: 23000,
-          audi: 24000,
-        },
-      }
+export default {
+  data() {
+    return {
+      brand: '',
+      price: 0,
+      cars: {
+        BMW: 22000,
+        mercedes: 23000,
+        audi: 24000,
+      },
+    }
+  },
+
+  methods: {
+    addCar() {
+      if (this.brand === '' || this.price === 0) return
+      this.cars[this.brand] = this.price
+      this.brand = ''
+      this.price = 0
     },
-  }
+  },
+}
 </script>
 
 <template>
   <div class="main">
-    <h1>hello {{ count }}</h1>
-    <textarea v-on:change="brand = $event.target.value">brand</textarea>
-    <textarea v-on:change="price = $event.target.value">price</textarea>
-    <button v-on:click=";(cars[brand] = price), (brand = ''), (price = 0)">
-      click me
-    </button>
+    <textarea :value="brand" v-on:input="brand = $event.target.value">
+    </textarea>
+
+    <textarea :value="price" v-on:input="price = $event.target.value">
+    </textarea>
+
+    <button v-on:click="addCar">click me</button>
     <ul>
       <li v-for="(car, key) in cars" :key="key">{{ key }}: {{ car }}</li>
     </ul>
